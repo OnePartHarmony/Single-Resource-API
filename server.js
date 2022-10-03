@@ -71,6 +71,28 @@ app.post("/cakes", (req,res) => {
         .catch(console.error)
 })
 
+/////show/////
+app.get("/cakes/:id", (req, res) => {
+    const id = req.params.id
+    Cake.findById(id)
+        .then(cake => {
+            res.status(200).json({cake: cake})
+        })
+        .catch(console.error)
+})
+
+//////update///////
+app.put("/cakes/:id", (req,res) => {
+    const id = req.params.id
+    Cake.findByIdAndUpdate(id, req.body, {new:true})
+    .then(cake => {
+        console.log("The cake that was updated: ", cake)
+        res.sendStatus(204)
+    })
+    .catch(console.error)
+})
+
+
 
 
 
