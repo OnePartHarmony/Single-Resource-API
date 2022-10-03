@@ -92,7 +92,16 @@ app.put("/cakes/:id", (req,res) => {
     .catch(console.error)
 })
 
-
+//////delete//////
+app.delete("/cakes/:id", (req,res) => {
+    const id = req.params.id
+    Cake.findByIdAndRemove(id)
+    .then(cake => {
+        console.log("The cake that was deleted: ", cake)
+        res.sendStatus(204)
+    })
+    .catch(err => res.json(err))
+})
 
 
 
