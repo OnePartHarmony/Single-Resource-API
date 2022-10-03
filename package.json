@@ -1,0 +1,30 @@
+{
+  "name": "hw9-single-resource-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OnePartHarmony/Single-Resource-API.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OnePartHarmony/Single-Resource-API/issues"
+  },
+  "homepage": "https://github.com/OnePartHarmony/Single-Resource-API#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.1",
+    "mongoose": "^6.6.4",
+    "morgan": "^1.10.0"
+  }
+}
