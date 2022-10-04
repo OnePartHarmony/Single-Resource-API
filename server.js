@@ -6,15 +6,14 @@ const path = require("path")
 
 const CakeRouter = require("./controllers/cakes")
 
+
+const middleware = require("./utility/middleware")
+
 ////express application object////////
 const app = express()
 
 //////Middleware/////
-app.use(morgan("tiny"))
-app.use(express.urlencoded({extended:true}))
-app.use(express.static("public"))
-app.use(express.json())
-
+middleware(app)
 
 
 //////Home Route//////////
