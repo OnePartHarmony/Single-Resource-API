@@ -1,12 +1,9 @@
 require("dotenv").config()
 const express = require("express")
-const morgan = require("morgan")
-const mongoose = require("mongoose")
 const path = require("path")
 
 const CakeRouter = require("./controllers/cakes")
-
-
+const UserRouter = require("./controllers/user")
 const middleware = require("./utility/middleware")
 
 ////express application object////////
@@ -24,8 +21,7 @@ app.get("/", (req,res) => {
 
 /////Register Routes///////
 app.use("/cakes", CakeRouter)
-
-
+app.use("/user", UserRouter)
 
 
 /////Server Listener///////
