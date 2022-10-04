@@ -21,9 +21,43 @@ router.post("/signup", async (req,res) => {
         })
 })
 
+////////login route///////////
+router.post("/login", async (req,res) => {
+    const {username, password} = req.body
+    User.findOne({username})
+        .then(async (user) => {
+            if (user) {
+                const passwordMatches = await bcrypt.compare(password, user.password)
+                if (passwordMatches) {
+                    req.session.username = username
+                    req.session.loggedIn = true
+                    req.session.userId = user.id
+
+                    console.log("this is req.session: ", req.session)
+
+                    res.status(201).json({user: user.toObject()})
+                } else {
+                    res.json({error: "password incorrect"})
+                }
+            } else {
+                res.json({error: "user doesn't exist"})
+            }
+        })
+        .catch(err => {
+            console.error(err)
+            res.json(err)
+        })
+})
 
 
-
+/////////logout route/////////////
+router.delete("/logout", (req, res) => {
+    req.session.destroy(err => {
+        console.log("session after logout: ", req.session)
+        console.log("error on logout?", err)
+        res.sendStatus(204)
+    })
+})
 
 
 module.exports = router
