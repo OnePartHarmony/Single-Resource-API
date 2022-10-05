@@ -7,7 +7,7 @@ const Bread = require("../models/bread")
 
 /////Routes//////////
 
-////post comment route - can only be done when logged in/////
+//post comment route - can only be done when logged in/////
 // router.post("/:cakeOrBreadId", (req,res) => {
 //     const id = req.params.cakeOrBreadId
 //     if (req.session.loggedIn) {
@@ -17,7 +17,22 @@ const Bread = require("../models/bread")
 //         return
 //     }
 //     Cake.findById(id)
-//         .then(cake => )
+//         .then(cake => {
+//             if (cake == null) {
+//                 Bread.findById(id)
+//                     .then(bread => {
+//                         bread.comments.push(req.body)
+//                         bread.save()
+//                         res.status(200).json({bread: bread})
+//                     })
+//                     .catch(error => console.error(error))
+//             } else {
+//                 cake.comments.push(req.body)
+//                 cake.save()
+//                 res.status(200).json({cake: cake})
+//             }
+//         })
+//         .catch(error => console.error(error))
 // })
 
 
