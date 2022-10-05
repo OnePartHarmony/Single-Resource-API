@@ -29,6 +29,10 @@ const cakeSchema = new Schema({
     hasFilling: {
         type: Boolean,
         required: true
+    },
+    owner: {
+        type: Schema.Types.ObjectId,
+        ref: "User"
     }
 })
 

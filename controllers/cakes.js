@@ -19,6 +19,7 @@ router.get("/", (req,res) => {
 
 /////create/////
 router.post("/", (req,res) => {
+    req.body.owner = req.session.userId
     Cake.create(req.body)
         .then(cake => {
             res.status(201).json({cake: cake.toObject()})
