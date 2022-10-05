@@ -11,6 +11,8 @@ const router = express.Router()
 /////index/////
 router.get("/", (req,res) => {
     Bread.find({})
+        .populate("owner", "username")
+        .populate("comments.author", "username")
         .then(bread => {
             res.json({bread: bread})
         })
@@ -30,6 +32,8 @@ router.post("/", (req,res) => {
 /////index route for user-owned breads/////
 router.get("/mine", (req,res) => {
     Bread.find({owner: req.session.userId})
+        .populate("owner", "username")
+        .populate("comments.author", "username")
         .then(bread => {
             res.status(200).json({bread: bread})
         })
@@ -40,6 +44,8 @@ router.get("/mine", (req,res) => {
 router.get("/:id", (req, res) => {
     const id = req.params.id
     Bread.findById(id)
+        .populate("owner", "username")
+        .populate("comments.author", "username")
         .then(bread => {
             res.status(200).json({bread: bread})
         })

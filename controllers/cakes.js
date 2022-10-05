@@ -11,6 +11,8 @@ const router = express.Router()
 /////index/////
 router.get("/", (req,res) => {
     Cake.find({})
+        .populate("owner", "username")
+        .populate("comments.author", "username")
         .then(cakes => {
             res.json({cakes: cakes})
         })
@@ -30,6 +32,8 @@ router.post("/", (req,res) => {
 /////index route for user-owned cakes/////
 router.get("/mine", (req,res) => {
     Cake.find({owner: req.session.userId})
+        .populate("owner", "username")
+        .populate("comments.author", "username")
         .then(cakes => {
             res.status(200).json({cakes: cakes})
         })
@@ -40,6 +44,8 @@ router.get("/mine", (req,res) => {
 router.get("/:id", (req, res) => {
     const id = req.params.id
     Cake.findById(id)
+    .populate("owner", "username")
+    .populate("comments.author", "username")
         .then(cake => {
             res.status(200).json({cake: cake})
         })
