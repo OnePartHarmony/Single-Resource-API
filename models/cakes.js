@@ -1,4 +1,5 @@
 const mongoose = require("./connection")
+const commentSchema = require("./comment")
 
 const {Schema, model} = mongoose
 
@@ -33,8 +34,9 @@ const cakeSchema = new Schema({
     owner: {
         type: Schema.Types.ObjectId,
         ref: "User"
-    }
-})
+    },
+    comments: [commentSchema]
+}, {timestamps: true})
 
 const Cake = model("Cake", cakeSchema)
 

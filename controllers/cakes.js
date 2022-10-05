@@ -36,9 +36,6 @@ router.get("/mine", (req,res) => {
         .catch(error => res.json(error))
 })
 
-
-
-
 /////show/////
 router.get("/:id", (req, res) => {
     const id = req.params.id
