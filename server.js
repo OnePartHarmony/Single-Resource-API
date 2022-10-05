@@ -3,7 +3,9 @@ const express = require("express")
 const path = require("path")
 
 const CakeRouter = require("./controllers/cakes")
+const BreadRouter = require("./controllers/bread")
 const UserRouter = require("./controllers/user")
+const CommentRouter = require("./controllers/comment")
 const middleware = require("./utility/middleware")
 
 ////express application object////////
@@ -21,7 +23,9 @@ app.get("/", (req,res) => {
 
 /////Register Routes///////
 app.use("/cakes", CakeRouter)
+app.use("/bread", BreadRouter)
 app.use("/user", UserRouter)
+app.use("/comments", CommentRouter)
 
 
 /////Server Listener///////
