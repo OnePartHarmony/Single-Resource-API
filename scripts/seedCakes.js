@@ -1,4 +1,4 @@
-//run this script with "npm run seed"
+//run this script with "npm run seed-cakes"
 
 const mongoose = require("../models/connection")
 const Cake = require("../models/cakes")
