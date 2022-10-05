@@ -37,6 +37,47 @@ router.post("/:cakeOrBreadId", (req,res) => {
 })
 
 
+/////delete comment route- only useable by author of comment////
+router.delete("/:cakeOrBreadId/:commentId", (req,res) => {
+    const goodsId = req.params.cakeOrBreadId
+    const commentId = req.params.commentId
+    Cake.findById(goodsId)
+        .then(cake => {
+            if (!req.session.loggedIn) {
+                res.sendStatus(401)
+            } else if (cake == null) {
+                Bread.findById(goodsId)
+                .then(bread => {
+                    const breadComment = bread.comments.id(commentId)
+                    if (breadComment.author == req.session.userId) {
+                        breadComment.remove()
+                        res.status(200).json({bread: bread})
+                        return bread.save()
+                    } else {
+                        res.sendStatus(401)
+                    }
+                })
+                .catch(error => console.error(error))
+            } else {
+                const cakeComment = cake.comments.id(commentId)
+                if (cakeComment.author == req.session.userId) {
+                    cakeComment.remove()
+                    res.status(200).json({cake: cake})
+                    return cake.save()
+                } else {
+                    res.sendStatus(401)
+                }
+            }
+        })
+        .catch(error => console.error(error))
+})
+
+
+
+
+
+
+
 
 
 ////Export Routes////////
