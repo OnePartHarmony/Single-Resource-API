@@ -51,10 +51,14 @@ router.put("/:id", (req,res) => {
 //////delete//////
 router.delete("/:id", (req,res) => {
     const id = req.params.id
-    Cake.findByIdAndRemove(id)
+    Cake.findById(id)
     .then(cake => {
-        console.log("The cake that was deleted: ", cake)
-        res.sendStatus(204)
+        if (cake.owner == req.session.userId) {
+           res.sendStatus(204)
+           return cake.deleteOne()
+        } else {
+            res.sendStatus(401)
+        }        
     })
     .catch(err => res.json(err))
 })
