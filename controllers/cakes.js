@@ -27,6 +27,18 @@ router.post("/", (req,res) => {
         .catch(console.error)
 })
 
+/////index route for user-owned cakes/////
+router.get("/mine", (req,res) => {
+    Cake.find({owner: req.session.userId})
+        .then(cakes => {
+            res.status(200).json({cakes: cakes})
+        })
+        .catch(error => res.json(error))
+})
+
+
+
+
 /////show/////
 router.get("/:id", (req, res) => {
     const id = req.params.id
@@ -40,12 +52,16 @@ router.get("/:id", (req, res) => {
 //////update///////
 router.put("/:id", (req,res) => {
     const id = req.params.id
-    Cake.findByIdAndUpdate(id, req.body, {new:true})
-    .then(cake => {
-        console.log("The cake that was updated: ", cake)
-        res.sendStatus(204)
-    })
-    .catch(console.error)
+    Cake.findById(id)
+        .then(cake => {
+            if (cake.owner == req.session.userId) {
+               res.sendStatus(204)
+               return cake.updateOne(req.body)
+            } else {
+                res.sendStatus(401)
+            }            
+        })
+        .catch(err => res.json(err))
 })
 
 //////delete//////
