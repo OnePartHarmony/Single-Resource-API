@@ -9,7 +9,7 @@ const CommentRouter = require("./controllers/comment")
 const middleware = require("./utility/middleware")
 
 ////express application object////////
-const app = express()
+const app = require("liquid-express-views")(express())
 
 //////Middleware/////
 middleware(app)
