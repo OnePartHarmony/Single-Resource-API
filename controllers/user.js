@@ -4,6 +4,12 @@ const bcrypt = require("bcryptjs")
 
 const router = express.Router()
 
+
+//signup GET route to render signup page
+router.get("/signup", (req,res) => {
+    res.render("users/signup")
+})
+
 //////user signup//////
 router.post("/signup", async (req,res) => {
     console.log("This is the body input for signup: ", req.body)
@@ -21,7 +27,13 @@ router.post("/signup", async (req,res) => {
         })
 })
 
-////////login route///////////
+
+//login GET route to render login page
+router.get("/login", (req,res) => {
+    res.render("users/login")
+})
+
+////////login POST route to submit login///////////
 router.post("/login", async (req,res) => {
     const {username, password} = req.body
     User.findOne({username})
