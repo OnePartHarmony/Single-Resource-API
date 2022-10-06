@@ -17,7 +17,7 @@ middleware(app)
 
 //////Home Route//////////
 app.get("/", (req,res) => {
-    res.send("The server is running.  Nothing on the homepage yet")
+    res.render("index.liquid")
 })
 
 
