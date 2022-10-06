@@ -1,6 +1,6 @@
 const mongoose = require("../utility/connection")
 const commentSchema = require("../schema/comment")
-const daysSchema = require("../schema/days")
+// const daysSchema = require("../schema/days")
 
 const {Schema, model} = mongoose
 
@@ -14,10 +14,15 @@ const cakeSchema = new Schema({
         required: true,
         set: lowerCaseValue
     },
+    sponge: {
+        type: String,
+        required: true,
+        set: lowerCaseValue
+    },
     frosting: {
         type: String,
         required: true,
-        enum: ["buttercream", "cream cheese", "chocolate", "glaze", "ganache", "none"],
+        enum: ["vanilla buttercream", "cream cheese frosting", "chocolate frosting", "glaze", "ganache", "none"],
         set: lowerCaseValue
     },
     price: {
@@ -32,7 +37,7 @@ const cakeSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "User"
     },
-    available: [daysSchema],
+    // available: [daysSchema],
     comments: [commentSchema]
 }, {timestamps: true})
 

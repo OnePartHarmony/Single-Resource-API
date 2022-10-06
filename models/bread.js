@@ -1,6 +1,6 @@
 const mongoose = require("../utility/connection")
 const commentSchema = require("../schema/comment")
-const daysSchema = require("../schema/days")
+// const daysSchema = require("../schema/days")
 
 const {Schema, model} = mongoose
 
@@ -22,11 +22,15 @@ const breadSchema = new Schema({
         type: Boolean,
         required: true
     },
+    price: {
+        type: Number,
+        required: true
+    },
     owner: {
         type: Schema.Types.ObjectId,
         ref: "User"
     },
-    available: [daysSchema],
+    // available: [daysSchema],
     comments: [commentSchema]
 }, {timestamps: true})
 

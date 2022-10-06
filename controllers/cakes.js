@@ -14,7 +14,10 @@ router.get("/", (req,res) => {
         .populate("owner", "username")
         .populate("comments.author", "username")
         .then(cakes => {
-            res.json({cakes: cakes})
+            const username = req.session.username
+            const loggedIn = req.session.loggedIn
+            const userId = req.session.userId
+            res.render("cakes/index", {cakes, username, loggedIn, userId})
         })
         .catch(console.error)
 })

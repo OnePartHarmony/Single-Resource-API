@@ -13,8 +13,11 @@ router.get("/", (req,res) => {
     Bread.find({})
         .populate("owner", "username")
         .populate("comments.author", "username")
-        .then(bread => {
-            res.json({bread: bread})
+        .then(breads => {
+            const username = req.session.username
+            const loggedIn = req.session.loggedIn
+            const userId = req.session.userId
+            res.render("breads/index", {breads, username, loggedIn, userId})
         })
         .catch(console.error)
 })
