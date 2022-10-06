@@ -1,5 +1,5 @@
-const mongoose = require("./connection")
-const commentSchema = require("./comment")
+const mongoose = require("../utility/connection")
+const commentSchema = require("../schema/comment")
 
 const {Schema, model} = mongoose
 

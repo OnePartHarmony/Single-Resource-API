@@ -1,5 +1,5 @@
-const mongoose = require("./connection")
-const commentSchema = require("./comment")
+const mongoose = require("../utility/connection")
+const commentSchema = require("../schema/comment")
 
 const {Schema, model} = mongoose
 
@@ -19,13 +19,9 @@ const cakeSchema = new Schema({
         enum: ["buttercream", "cream cheese", "chocolate", "glaze", "ganache", "none"],
         set: lowerCaseValue
     },
-    diameter: {
+    price: {
         type: Number,
         required: true
-    },
-    layers: {
-        type: Number,
-        required: false
     },
     hasFilling: {
         type: Boolean,
@@ -35,6 +31,7 @@ const cakeSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "User"
     },
+    daysAvailable: [daysSchema],
     comments: [commentSchema]
 }, {timestamps: true})
 

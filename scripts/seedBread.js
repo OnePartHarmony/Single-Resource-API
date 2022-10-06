@@ -1,6 +1,6 @@
 //run this script with "npm run seed-bread"
 
-const mongoose = require("../models/connection")
+const mongoose = require("../utility/connection")
 const Bread = require("../models/bread")
 
 const db = mongoose.connection

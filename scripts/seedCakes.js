@@ -1,18 +1,18 @@
 //run this script with "npm run seed-cakes"
 
-const mongoose = require("../models/connection")
+const mongoose = require("../utility/connection")
 const Cake = require("../models/cakes")
 
 const db = mongoose.connection
 
 db.on("open", () => {
     const starterCakes = [
-        { name: "wacky", frosting: "chocolate", diameter: 8, layers: 1, hasFilling: false },
-        { name: "harvey wallbanger", frosting: "glaze", diameter: 10, hasFilling: false },
-        { name: "boston cream pie", frosting: "ganache", diameter: 8, layers: 2, hasFilling: true },
-        { name: "red velvet", frosting: "cream cheese", diameter: 9, layers: 2, hasFilling: false },
-        { name: "black and white", frosting: "buttercream", diameter: 8, layers: 2, hasFilling: true },
-        { name: "carrot", frosting: "cream cheese", diameter: 9, layers: 2, hasFilling: false },
+        { name: "wacky", frosting: "chocolate", price: 25.00, hasFilling: false },
+        { name: "harvey wallbanger", frosting: "glaze", price: 30.00, hasFilling: false },
+        { name: "boston cream pie", frosting: "ganache", price: 40.00, hasFilling: true },
+        { name: "red velvet", frosting: "cream cheese", price: 34.50, hasFilling: false },
+        { name: "black and white", frosting: "buttercream", price: 40.00, hasFilling: true },
+        { name: "carrot", frosting: "cream cheese", price: 34.50, hasFilling: false },
     ]
 
     Cake.deleteMany({})
