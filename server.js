@@ -23,7 +23,7 @@ app.get("/", (req,res) => {
 
 /////Register Routes///////
 app.use("/cakes", CakeRouter)
-app.use("/bread", BreadRouter)
+app.use("/breads", BreadRouter)
 app.use("/user", UserRouter)
 app.use("/comments", CommentRouter)
 
