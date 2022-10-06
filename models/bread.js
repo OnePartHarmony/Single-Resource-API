@@ -1,5 +1,6 @@
 const mongoose = require("../utility/connection")
 const commentSchema = require("../schema/comment")
+const daysSchema = require("../schema/days")
 
 const {Schema, model} = mongoose
 
@@ -25,6 +26,7 @@ const breadSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "User"
     },
+    available: [daysSchema],
     comments: [commentSchema]
 }, {timestamps: true})
 
