@@ -16,17 +16,28 @@ router.get("/", (req,res) => {
             const username = req.session.username
             const loggedIn = req.session.loggedIn
             const userId = req.session.userId
-            res.render("breads/index", {breads, username, loggedIn, userId})
+            const whoseIndex = "All"
+            res.render("breads/index", {breads, username, loggedIn, userId, whoseIndex})
         })
         .catch(console.error)
+})
+
+
+router.get("/new", (req,res) => {
+    const username = req.session.username
+    const loggedIn = req.session.loggedIn
+    const userId = req.session.userId
+    res.render("breads/new", {username, loggedIn, userId})
 })
 
 /////create/////
 router.post("/", (req,res) => {
     req.body.owner = req.session.userId
+    req.body.isVegan = req.body.isVegan === "on" ? true : false
+    req.body.isYeasted = req.body.isYeasted === "on" ? true : false
     Bread.create(req.body)
         .then(bread => {
-            res.status(201).json({bread: bread.toObject()})
+            res.redirect("/breads")
         })
         .catch(console.error)
 })
@@ -34,10 +45,14 @@ router.post("/", (req,res) => {
 /////index route for user-owned breads/////
 router.get("/mine", (req,res) => {
     Bread.find({owner: req.session.userId})
-        .populate("owner", "username")
-        .populate("comments.author", "username")
-        .then(bread => {
-            res.status(200).json({bread: bread})
+        // .populate("owner", "username")
+        // .populate("comments.author", "username")
+        .then(breads => {
+            const username = req.session.username
+            const loggedIn = req.session.loggedIn
+            const userId = req.session.userId
+            const whoseIndex = "Your"
+            res.render("breads/index", {breads, username, loggedIn, userId, whoseIndex})
         })
         .catch(error => res.json(error))
 })
@@ -55,6 +70,18 @@ router.get("/:name", (req, res) => {
             res.render('breads/show', { bread, username, loggedIn, userId })
         })
         .catch(console.error)
+})
+
+
+
+router.get("/edit/:name", (req,res) => {
+    const name = req.params.name
+    Bread.findOne({name: {$eq: name}})
+    // const username = req.session.username
+    // const loggedIn = req.session.loggedIn
+    // const userId = req.session.userId
+    res.send("edit page")
+
 })
 
 //////update///////

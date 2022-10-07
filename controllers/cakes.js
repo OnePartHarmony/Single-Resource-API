@@ -17,17 +17,27 @@ router.get("/", (req,res) => {
             const username = req.session.username
             const loggedIn = req.session.loggedIn
             const userId = req.session.userId
-            res.render("cakes/index", {cakes, username, loggedIn, userId})
+            const whoseIndex = "All"
+            res.render("cakes/index", {cakes, username, loggedIn, userId, whoseIndex})
         })
         .catch(console.error)
+})
+
+
+router.get("/new", (req,res) => {
+    const username = req.session.username
+    const loggedIn = req.session.loggedIn
+    const userId = req.session.userId
+    res.render("cakes/new", {username, loggedIn, userId})
 })
 
 /////create/////
 router.post("/", (req,res) => {
     req.body.owner = req.session.userId
+    req.body.hasFilling = req.body.hasFilling === "on" ? true : false
     Cake.create(req.body)
         .then(cake => {
-            res.status(201).json({cake: cake.toObject()})
+            res.redirect("/cakes")
         })
         .catch(console.error)
 })
@@ -38,7 +48,11 @@ router.get("/mine", (req,res) => {
         .populate("owner", "username")
         .populate("comments.author", "username")
         .then(cakes => {
-            res.status(200).json({cakes: cakes})
+            const username = req.session.username
+            const loggedIn = req.session.loggedIn
+            const userId = req.session.userId
+            const whoseIndex = "Your"
+            res.render("cakes/index", {cakes, username, loggedIn, userId, whoseIndex})
         })
         .catch(error => res.json(error))
 })
@@ -56,6 +70,17 @@ router.get("/:name", (req, res) => {
             res.render('cakes/show', { cake, username, loggedIn, userId })
         })
         .catch(console.error)
+})
+
+
+router.get("/edit/:name", (req,res) => {
+    const name = req.params.name
+    Cake.findOne({name: {$eq: name}})
+    // const username = req.session.username
+    // const loggedIn = req.session.loggedIn
+    // const userId = req.session.userId
+    res.send("edit page")
+
 })
 
 //////update///////
