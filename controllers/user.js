@@ -19,11 +19,11 @@ router.post("/signup", async (req,res) => {
     )
     User.create(req.body)
         .then(user => {
-            res.status(201).json({username: user.username})
+            res.redirect("user/login")
         })
         .catch(error => {
             console.error(error)
-            res.json(error)
+            res.redirect(`/error?error=username%20already%20taken`)
         })
 })
 
@@ -47,17 +47,17 @@ router.post("/login", async (req,res) => {
 
                     console.log("this is req.session: ", req.session)
 
-                    res.status(201).json({user: user.toObject()})
+                    res.redirect("/")
                 } else {
-                    res.json({error: "password incorrect"})
+                    res.redirect(`/error?error=password%20incorrect`)
                 }
             } else {
-                res.json({error: "user doesn't exist"})
+                res.redirect(`/error?error=user%20doesn't%20exist`)
             }
         })
         .catch(err => {
             console.error(err)
-            res.json(err)
+            res.redirect(`/error?error=${err}`)
         })
 })
 
@@ -74,7 +74,7 @@ router.delete("/logout", (req, res) => {
     req.session.destroy(err => {
         console.log("session after logout: ", req.session)
         console.log("error on logout?", err)
-        res.sendStatus(204)
+        res.redirect("/")
     })
 })
 
