@@ -1,6 +1,22 @@
 {% layout "layout.liquid" %}
 {% block content %}
-
-
-
+    <div class="container-md">
+        <article>
+            <h2>{{bread.name}}</h2>
+            <h4>Our {{bread.name}} is a delicious
+                {% if bread.isVegan %}
+                vegan
+                {% else %}
+                enriched
+                {% endif %}
+                {% if bread.isYeasted %}
+                bread
+                {% else %}
+                sourdough bread
+                {% endif %}
+                with {{bread.specialIngredients}}.
+            </h4>
+            <h5>Purchase a loaf for ${{bread.price}}.</h5>
+        </article>
+    </div>
 {% endblock %}

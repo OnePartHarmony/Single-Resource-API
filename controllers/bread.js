@@ -7,7 +7,6 @@ const router = express.Router()
 
 ////////////ROUTES//////
 
-
 /////index/////
 router.get("/", (req,res) => {
     Bread.find({})
@@ -44,13 +43,16 @@ router.get("/mine", (req,res) => {
 })
 
 /////show/////
-router.get("/:id", (req, res) => {
-    const id = req.params.id
-    Bread.findById(id)
+router.get("/:name", (req, res) => {
+    const name = req.params.name
+    Bread.findOne({ name: {$eq: name}})
         .populate("owner", "username")
         .populate("comments.author", "username")
         .then(bread => {
-            res.status(200).json({bread: bread})
+            const username = req.session.username
+            const loggedIn = req.session.loggedIn
+            const userId = req.session.userId
+            res.render('breads/show', { bread, username, loggedIn, userId })
         })
         .catch(console.error)
 })

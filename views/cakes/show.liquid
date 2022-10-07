@@ -1,6 +1,17 @@
 {% layout "layout.liquid" %}
 {% block content %}
-
-
-
+    <div class="container-md">
+        <article>
+            <h2>{{cake.name}}</h2>
+            <h4>Our {{cake.name}} cake is a delicious {{cake.sponge}} sponge, coated with a rich {{cake.frosting}}.</h4>
+            <h5>Purchase an entire cake for ${{cake.price}} or a slice for ${{cake.price | divided_by: 5 }}</h5>
+            <p>
+                {% if cake.hasFilling %}
+                This cake has a filling, so keep refrigerated.
+                {% else %}
+                Keeps well at room temperature.
+                {% endif %}
+            </p>
+        </article>
+    </div>
 {% endblock %}

@@ -7,16 +7,16 @@ const db = mongoose.connection
 
 db.on("open", () => {
     const starterBread= [
-        { name: "sourdough", isYeasted: false, isVegan: true, price: 7
+        { name: "sourdough", isYeasted: false, isVegan: true, specialIngredients: "whole-grain flour", price: 7
         //  available: [{day: "Wednesday", startHour: 6}, {day: "Thursday", startHour: 6}, {day: "Friday", startHour: 6}, {day: "Saturday", startHour: 6}, {day: "Sunday", startHour: 6}]
         },
-        { name: "seeded", isYeasted: false, isVegan: true, price: 8
+        { name: "seeded sourdough", isYeasted: false, isVegan: true, specialIngredients: "sesame, pumpkin, and sunflower seeds", price: 8
         //  available: [{day: "Wednesday", startHour: 6}, {day: "Thursday", startHour: 6}, {day: "Friday", startHour: 6}]
         },
-        { name: "challah", isYeasted: true, isVegan: false, price: 9
+        { name: "challah", isYeasted: true, isVegan: false, specialIngredients: "eggs", price: 9
         //  available: [{day: "Friday", startHour: 10}]
         },
-        { name: "pain de mie", isYeasted: true, isVegan: false, price: 8
+        { name: "pain de mie", isYeasted: true, isVegan: false, specialIngredients: "milk and butter", price: 8
         //  available: [{day: "Thursday", startHour: 8}, {day: "Friday", startHour: 8}, {day: "Saturday", startHour: 8}, {day: "Sunday", startHour: 8}]
         }
     ]

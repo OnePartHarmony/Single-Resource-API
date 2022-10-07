@@ -22,6 +22,10 @@ const breadSchema = new Schema({
         type: Boolean,
         required: true
     },
+    specialIngredients : {
+        type: String,
+        required: true
+    },
     price: {
         type: Number,
         required: true
