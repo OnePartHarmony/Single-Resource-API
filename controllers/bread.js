@@ -77,11 +77,15 @@ router.get("/:name", (req, res) => {
 router.get("/edit/:name", (req,res) => {
     const name = req.params.name
     Bread.findOne({name: {$eq: name}})
-    // const username = req.session.username
-    // const loggedIn = req.session.loggedIn
-    // const userId = req.session.userId
-    res.send("edit page")
-
+        .then (bread => {
+            const username = req.session.username
+            const loggedIn = req.session.loggedIn
+            const userId = req.session.userId
+            res.render("/breads/edit", {bread, username, loggedIn, userId})
+        })
+        .catch(err => {
+            res.redirect(`/error?error=${err}`)
+        })
 })
 
 //////update///////

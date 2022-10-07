@@ -76,10 +76,15 @@ router.get("/:name", (req, res) => {
 router.get("/edit/:name", (req,res) => {
     const name = req.params.name
     Cake.findOne({name: {$eq: name}})
-    // const username = req.session.username
-    // const loggedIn = req.session.loggedIn
-    // const userId = req.session.userId
-    res.send("edit page")
+        .then (cake => {
+            const username = req.session.username
+            const loggedIn = req.session.loggedIn
+            const userId = req.session.userId
+            res.render("/cakes/edit", {cake, username, loggedIn, userId})
+        })
+        .catch(err => {
+            res.redirect(`/error?error=${err}`)
+        })
 
 })
 
