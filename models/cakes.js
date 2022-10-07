@@ -12,6 +12,7 @@ const cakeSchema = new Schema({
     name: {
         type: String,
         required: true,
+        unique: true,
         set: lowerCaseValue
     },
     sponge: {

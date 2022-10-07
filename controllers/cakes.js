@@ -59,9 +59,9 @@ router.get("/:name", (req, res) => {
 })
 
 //////update///////
-router.put("/:id", (req,res) => {
-    const id = req.params.id
-    Cake.findById(id)
+router.put("/:name", (req, res) => {
+    const name = req.params.name
+    Cake.findOne({name: {$eq: name}})
         .then(cake => {
             if (cake.owner == req.session.userId) {
                res.sendStatus(204)
@@ -74,16 +74,12 @@ router.put("/:id", (req,res) => {
 })
 
 //////delete//////
-router.delete("/:id", (req,res) => {
-    const id = req.params.id
-    Cake.findById(id)
+router.delete("/:name", (req, res) => {
+    const name = req.params.name
+    Cake.findOne({name: {$eq: name}})
     .then(cake => {
-        if (cake.owner == req.session.userId) {
-           res.sendStatus(204)
-           return cake.deleteOne()
-        } else {
-            res.sendStatus(401)
-        }        
+        cake.deleteOne()
+        res.redirect("/cakes")
     })
     .catch(err => res.json(err))
 })
