@@ -12,7 +12,7 @@
                 Keeps well at room temperature.
                 {% endif %}
             </p>
-            {% if cake.owner == userId %}
+            {% if loggedIn and cake.owner == userId %}
                 <div class="btn-group">
                     <a class="btn btn-primary" href="/cakes/edit/{{cake.name}}">Edit</a>
                     <form action="/cakes/{{cake.name}}?_method=DELETE" method="POST">

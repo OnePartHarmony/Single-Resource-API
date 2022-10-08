@@ -17,7 +17,7 @@
                 with {{bread.specialIngredients}}.
             </h4>
             <h5>Purchase a loaf for ${{bread.price}}.</h5>
-            {% if bread.owner == userId %}
+            {% if loggedIn and bread.owner == userId %}
                 <div class="btn-group">
                     <a class="btn btn-primary" href="/breads/edit/{{bread.name}}">Edit</a>
                     <form action="/breads/{{bread.name}}?_method=DELETE" method="POST">
