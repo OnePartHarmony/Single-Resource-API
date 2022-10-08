@@ -19,7 +19,7 @@ router.get("/", (req,res) => {
             const whoseIndex = "All"
             res.render("breads/index", {breads, username, loggedIn, userId, whoseIndex})
         })
-        .catch(console.error)
+        .catch(err => res.redirect(`/error?error=${err}`))
 })
 
 
@@ -39,7 +39,7 @@ router.post("/", (req,res) => {
         .then(bread => {
             res.redirect("/breads")
         })
-        .catch(console.error)
+        .catch(err => res.redirect(`/error?error=${err}`))
 })
 
 /////index route for user-owned breads/////
@@ -54,7 +54,7 @@ router.get("/mine", (req,res) => {
             const whoseIndex = "Your"
             res.render("breads/index", {breads, username, loggedIn, userId, whoseIndex})
         })
-        .catch(error => res.json(error))
+        .catch(err => res.redirect(`/error?error=${err}`))
 })
 
 /////show/////
@@ -69,7 +69,7 @@ router.get("/:name", (req, res) => {
             const userId = req.session.userId
             res.render('breads/show', { bread, username, loggedIn, userId })
         })
-        .catch(console.error)
+        .catch(err => res.redirect(`/error?error=${err}`))
 })
 
 
@@ -98,7 +98,7 @@ router.put("/:name", (req, res) => {
             if (bread.owner == req.session.userId) {
                return bread.updateOne(req.body)
             } else {
-                res.sendStatus(401)
+                res.redirect(`/error?error=bread%20may%20only%20be%20edited%20by%20its%20creator`)
             }            
         })
         .then(() => {
@@ -116,7 +116,7 @@ router.delete("/:name", (req,res) => {
                 bread.deleteOne()
                 res.redirect("/breads")
             } else {
-                res.redirect("/error?error=unauthorized")
+                res.redirect(`/error?error=bread%20may%20only%20be%20deleted%20by%20its%20creator`)
             }
         })
         .catch(err => res.redirect(`/error?error=${err}`))

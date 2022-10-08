@@ -14,7 +14,7 @@ router.post("/:cakeOrBreadId", (req,res) => {
     if (req.session.loggedIn) {
         req.body.author = req.session.userId
     } else {
-        res.sendStatus(401)
+        res.redirect(`/error?error=log%20in%20to%20comment`)
         return
     }
     Cake.findById(id)
@@ -26,14 +26,14 @@ router.post("/:cakeOrBreadId", (req,res) => {
                         bread.save()
                         res.status(200).json({bread: bread})
                     })
-                    .catch(error => console.error(error))
+                    .catch(err => res.redirect(`/error?error=${err}`))
             } else {
                 cake.comments.push(req.body)
                 cake.save()
                 res.status(200).json({cake: cake})
             }
         })
-        .catch(error => console.error(error))
+        .catch(err => res.redirect(`/error?error=${err}`))
 })
 
 
@@ -44,7 +44,7 @@ router.delete("/:cakeOrBreadId/:commentId", (req,res) => {
     Cake.findById(goodsId)
         .then(cake => {
             if (!req.session.loggedIn) {
-                res.sendStatus(401)
+                res.redirect(`/error?error=log%20in%20to%20delete%20or%20create%20comment`)
             } else if (cake == null) {
                 Bread.findById(goodsId)
                 .then(bread => {
@@ -54,10 +54,10 @@ router.delete("/:cakeOrBreadId/:commentId", (req,res) => {
                         res.status(200).json({bread: bread})
                         return bread.save()
                     } else {
-                        res.sendStatus(401)
+                        res.redirect(`/error?error=comment%20may%20only%20be%20deleted%20by%20its%20creator`)
                     }
                 })
-                .catch(error => console.error(error))
+                .catch(err => res.redirect(`/error?error=${err}`))
             } else {
                 const cakeComment = cake.comments.id(commentId)
                 if (cakeComment.author == req.session.userId) {
@@ -65,18 +65,12 @@ router.delete("/:cakeOrBreadId/:commentId", (req,res) => {
                     res.status(200).json({cake: cake})
                     return cake.save()
                 } else {
-                    res.sendStatus(401)
+                    res.redirect(`/error?error=comment%20may%20only%20be%20deleted%20by%20its%20creator`)
                 }
             }
         })
-        .catch(error => console.error(error))
+        .catch(err => res.redirect(`/error?error=${err}`))
 })
-
-
-
-
-
-
 
 
 

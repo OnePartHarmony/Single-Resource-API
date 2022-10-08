@@ -20,7 +20,7 @@ router.get("/", (req,res) => {
             const whoseIndex = "All"
             res.render("cakes/index", {cakes, username, loggedIn, userId, whoseIndex})
         })
-        .catch(console.error)
+        .catch(err => res.redirect(`/error?error=${err}`))
 })
 
 
@@ -39,7 +39,7 @@ router.post("/", (req,res) => {
         .then(cake => {
             res.redirect("/cakes")
         })
-        .catch(console.error)
+        .catch(err => res.redirect(`/error?error=${err}`))
 })
 
 /////index route for user-owned cakes/////
@@ -54,7 +54,7 @@ router.get("/mine", (req,res) => {
             const whoseIndex = "Your"
             res.render("cakes/index", {cakes, username, loggedIn, userId, whoseIndex})
         })
-        .catch(error => res.json(error))
+        .catch(err => res.redirect(`/error?error=${err}`))
 })
 
 /////show/////
@@ -69,7 +69,7 @@ router.get("/:name", (req, res) => {
             const userId = req.session.userId
             res.render('cakes/show', { cake, username, loggedIn, userId })
         })
-        .catch(console.error)
+        .catch(err => res.redirect(`/error?error=${err}`))
 })
 
 
@@ -97,7 +97,7 @@ router.put("/:name", (req, res) => {
             if (cake.owner == req.session.userId) {
                return cake.updateOne(req.body)
             } else {
-                res.sendStatus(401)
+                res.redirect("/error?error=cake%20may%20only%20be%20edited%20by%20its%20creator")
             }            
         })
         .then(() => {
@@ -115,7 +115,7 @@ router.delete("/:name", (req, res) => {
                 cake.deleteOne()
                 res.redirect("/cakes")
             } else {
-                res.redirect("/error?error=unauthorized")
+                res.redirect("/error?error=cake%20may%20only%20be%20deleted%20by%20its%20creator")
             }            
         })
         .catch(err => res.redirect(`/error?error=${err}`))
