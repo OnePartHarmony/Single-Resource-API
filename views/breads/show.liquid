@@ -26,5 +26,36 @@
                 </div>
             {% endif %}
         </article>
+                <hr>
+        <h4>Comments</h4>
+        <hr>
+        {% if loggedIn %}
+        <div class="col-md-6">
+            <form action="/comments/{{bread.id}}" method="POST">
+            <fieldset>
+                <legend>Add Comment:</legend>
+                <label class="form-label">comment:</label>
+                <input class="form-control mb-3" type="text" placeholder="enter your comment..." name="note" required>
+                <input class="btn btn-success" type="submit" value="Add Comment">
+            </fieldset>
+            </form>
+        </div>
+        {% else %}
+        <div class="col-md-6">
+            <small>If you'd like to leave a comment, please log in.</small>
+        </div>
+        {% endif %}
+        <hr>
+        {% if bread.comments.length > 0 %}
+            <div class="container-sm justify-content-center">
+                <div class="col-md-8 col-lg-6">
+                {% for comment in bread.comments %}
+                    {% render "./comment.liquid", comment: comment, userId: userId, bread: bread %}
+                {% endfor %}
+                </div>
+            </div>
+        {% else %}
+            <small>No comments yet...</small>
+        {% endif %}
     </div>
 {% endblock %}
