@@ -5,13 +5,13 @@
       <fieldset>
         <legend>Edit {{cake.name}}</legend>
         <label class="form-label">Name:</label>
-        <input class="form-control" type="text" name="name" placeholder="{{cake.name}}" required>
+        <input class="form-control mb-4" type="text" name="name" value="{{cake.name}}" required>
         <label class="form-label">Price:</label>
-        <input class="form-control" type="number" name="price" min="1" max="200" placeholder="{{cake.price}}" required>
+        <input class="form-control mb-4" type="number" name="price" min="1" max="200" value="{{cake.price}}" required>
         <label class="form-label">Sponge flavour:</label>
-        <input class="form-control" type="text" name="sponge" placeholder="{{cake.sponge}}" required>
+        <input class="form-control mb-4" type="text" name="sponge" value="{{cake.sponge}}" required>
         <label class="form-label">Frosting:</label>
-        <input list="frostings" name="frosting"required>
+        <input list="frostings" name="frosting" value="{{cake.frosting}}"  required>
         <datalist id="frostings">
             <option value="vanilla buttercream"></option>
             <option value="cream cheese frosting"></option>
@@ -21,9 +21,13 @@
             <option value="none"></option>
         </datalist>
         <label class="form-label">Is there a filling?:</label>
-        <input class="form-check-input" type="checkbox" name="hasFilling">
+        <input class="form-check-input mb-4" type="checkbox" name="hasFilling"
+        {% if cake.hasFilling %}
+        checked
+        {% endif %}
+        >
       </fieldset>
-      <input class="btn btn-success" type="submit" value="Create Cake">
+      <input class="btn btn-success" type="submit" value="Edit Cake">
     </form>
   </div>
 

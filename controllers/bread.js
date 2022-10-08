@@ -81,7 +81,7 @@ router.get("/edit/:name", (req,res) => {
             const username = req.session.username
             const loggedIn = req.session.loggedIn
             const userId = req.session.userId
-            res.render("/breads/edit", {bread, username, loggedIn, userId})
+            res.render("breads/edit", {bread, username, loggedIn, userId})
         })
         .catch(err => {
             res.redirect(`/error?error=${err}`)
@@ -91,16 +91,20 @@ router.get("/edit/:name", (req,res) => {
 //////update///////
 router.put("/:name", (req, res) => {
     const name = req.params.name
+    req.body.isYeasted =req.body.isYeasted == "on" ? true : false
+    req.body.isVegan = req.body.isVegan == "on" ? true : false
     Bread.findOne({name: {$eq: name}})
         .then(bread => {
             if (bread.owner == req.session.userId) {
-               res.sendStatus(204)
                return bread.updateOne(req.body)
             } else {
                 res.sendStatus(401)
             }            
         })
-        .catch(err => res.json(err))
+        .then(() => {
+            res.redirect(`/breads/${name}`)
+        })
+        .catch(err => res.redirect(`/error?error=${err}`))
 })
 
 //////delete//////
@@ -111,7 +115,7 @@ router.delete("/:name", (req, res) => {
         bread.deleteOne()
         res.redirect("/breads")
     })
-    .catch(err => res.json(err))
+    .catch(err => res.redirect(`/error?error=${err}`))
 })
 
 

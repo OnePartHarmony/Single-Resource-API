@@ -17,7 +17,10 @@ middleware(app)
 
 //////Home Route//////////
 app.get("/", (req,res) => {
-    res.render("index.liquid")
+    const username = req.session.username
+    const loggedIn = req.session.loggedIn
+    const userId = req.session.userId
+    res.render("index.liquid", {username, loggedIn, userId})
 })
 
 

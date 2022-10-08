@@ -80,7 +80,7 @@ router.get("/edit/:name", (req,res) => {
             const username = req.session.username
             const loggedIn = req.session.loggedIn
             const userId = req.session.userId
-            res.render("/cakes/edit", {cake, username, loggedIn, userId})
+            res.render("cakes/edit", {cake, username, loggedIn, userId})
         })
         .catch(err => {
             res.redirect(`/error?error=${err}`)
@@ -91,16 +91,19 @@ router.get("/edit/:name", (req,res) => {
 //////update///////
 router.put("/:name", (req, res) => {
     const name = req.params.name
+    req.body.hasFilling = req.body.hasFilling == "on" ? true : false 
     Cake.findOne({name: {$eq: name}})
         .then(cake => {
             if (cake.owner == req.session.userId) {
-               res.sendStatus(204)
                return cake.updateOne(req.body)
             } else {
                 res.sendStatus(401)
             }            
         })
-        .catch(err => res.json(err))
+        .then(() => {
+            res.redirect(`/cakes/${name}`)
+        })
+        .catch(err => res.redirect(`/error?error=${err}`))
 })
 
 //////delete//////
