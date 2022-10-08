@@ -50,7 +50,7 @@
             <div class="container-sm justify-content-center">
                 <div class="col-md-8 col-lg-6">
                 {% for comment in bread.comments %}
-                    {% render "./comment.liquid", comment: comment, userId: userId, bread: bread %}
+                    {% render "./comment.liquid", comment: comment, userId: userId, good: bread %}
                 {% endfor %}
                 </div>
             </div>

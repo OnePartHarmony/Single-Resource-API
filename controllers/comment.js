@@ -24,13 +24,13 @@ router.post("/:cakeOrBreadId", (req,res) => {
                     .then(bread => {
                         bread.comments.push(req.body)
                         bread.save()
-                        res.status(200).json({bread: bread})
+                        res.redirect(`/breads/${bread.name}`)
                     })
                     .catch(err => res.redirect(`/error?error=${err}`))
             } else {
                 cake.comments.push(req.body)
                 cake.save()
-                res.status(200).json({cake: cake})
+                res.redirect(`/cakes/${cake.name}`)
             }
         })
         .catch(err => res.redirect(`/error?error=${err}`))
@@ -38,7 +38,7 @@ router.post("/:cakeOrBreadId", (req,res) => {
 
 
 /////delete comment route- only useable by author of comment////
-router.delete("/:cakeOrBreadId/:commentId", (req,res) => {
+router.delete("/delete/:cakeOrBreadId/:commentId", (req,res) => {
     const goodsId = req.params.cakeOrBreadId
     const commentId = req.params.commentId
     Cake.findById(goodsId)
@@ -47,23 +47,23 @@ router.delete("/:cakeOrBreadId/:commentId", (req,res) => {
                 res.redirect(`/error?error=log%20in%20to%20delete%20or%20create%20comment`)
             } else if (cake == null) {
                 Bread.findById(goodsId)
-                .then(bread => {
-                    const breadComment = bread.comments.id(commentId)
-                    if (breadComment.author == req.session.userId) {
-                        breadComment.remove()
-                        res.status(200).json({bread: bread})
-                        return bread.save()
-                    } else {
-                        res.redirect(`/error?error=comment%20may%20only%20be%20deleted%20by%20its%20creator`)
-                    }
-                })
-                .catch(err => res.redirect(`/error?error=${err}`))
+                    .then(bread => {
+                        const breadComment = bread.comments.id(commentId)
+                        if (breadComment.author == req.session.userId) {
+                            breadComment.remove()
+                            bread.save()
+                            res.redirect(`/breads/${bread.name}`)
+                        } else {
+                            res.redirect(`/error?error=comment%20may%20only%20be%20deleted%20by%20its%20creator`)
+                        }
+                    })
+                    .catch(err => res.redirect(`/error?error=${err}`))
             } else {
                 const cakeComment = cake.comments.id(commentId)
                 if (cakeComment.author == req.session.userId) {
                     cakeComment.remove()
-                    res.status(200).json({cake: cake})
-                    return cake.save()
+                    cake.save()
+                    res.redirect(`/cakes/${cake.name}`)
                 } else {
                     res.redirect(`/error?error=comment%20may%20only%20be%20deleted%20by%20its%20creator`)
                 }
