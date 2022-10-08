@@ -4,8 +4,16 @@ const commentSchema = require("../schema/comment")
 
 const {Schema, model} = mongoose
 
-const lowerCaseValue = function (str) {
-    return str.toLowerCase()
+const lowerCaseValue = (string) => {
+    return string.toLowerCase()
+}
+
+const capitalizeValue = (string) => {
+    const wordsArray = string.split(" ")
+    const capitalString = wordsArray.map(word => {
+        return word[0].toUpperCase() + word.substring(1)
+    }).join(" ")
+    return capitalString
 }
 
 const cakeSchema = new Schema({
@@ -13,7 +21,7 @@ const cakeSchema = new Schema({
         type: String,
         required: true,
         unique: true,
-        set: lowerCaseValue
+        set: capitalizeValue
     },
     sponge: {
         type: String,
