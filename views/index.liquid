@@ -5,18 +5,18 @@
   <hr>
   {% if loggedIn %}
     <div class="btn-group btn-group-lg">
-      <a href="/mine" class="btn btn-success">Baked Goods By {{username}}</a>
+      <a href="/mine" class="btn btn-dark">Baked Goods By {{username}}</a>
     </div>
   {% else %}
-    <div class="btn-group btn-group-lgr">
-      <a href="/user/signup" class="btn btn-primary">Sign Up</a>
-      <a href="/user/login" class="btn btn-warning">Login</a>
+    <div class="btn-group btn-group-lg">
+      <a href="/user/signup" class="btn btn-dark">Sign Up</a>
+      <a href="/user/login" class="btn btn-secondary">Login</a>
     </div>
   {% endif %}
   <br>
   <hr>
   <div class="btn-group-lg">
-    <a href="/breads" class="btn btn-outline-info">View All Breads</a>
-    <a href="/cakes" class="btn btn-outline-secondary">View All Cakes</a>
+    <a href="/breads" class="btn btn-outline-dark">View All Breads</a>
+    <a href="/cakes" class="btn btn-outline-dark">View All Cakes</a>
   </div>
 {% endblock %}

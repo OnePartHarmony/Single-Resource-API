@@ -11,16 +11,17 @@
         <label class="form-label">Sponge flavour:</label>
         <input class="form-control mb-4" type="text" name="sponge" placeholder="flavour of sponge" required>
         <label class="form-label">Frosting:</label>
-        <input list="frostings" name="frosting" required>
-        <datalist id="frostings">
-            <option value="vanilla buttercream"></option>
-            <option value="cream cheese frosting"></option>
-            <option value="chocolate frosting"></option>
-            <option value="glaze"></option>
-            <option value="ganache"></option>
-            <option value="none"></option>
-        </datalist>
-        <label class="form-label">Is there a filling?:</label>
+        <input class="mb-4" list="frostings" name="frosting" required>
+          <datalist id="frostings">
+              <option value="vanilla buttercream"></option>
+              <option value="cream cheese frosting"></option>
+              <option value="chocolate frosting"></option>
+              <option value="glaze"></option>
+              <option value="ganache"></option>
+              <option value="none"></option>
+          </datalist>
+        <br>
+        <label class="form-label">Is there a filling?</label>
         <input class="form-check-input mb-4" type="checkbox" name="hasFilling">
       </fieldset>
       <input class="btn btn-success" type="submit" value="Create Cake">

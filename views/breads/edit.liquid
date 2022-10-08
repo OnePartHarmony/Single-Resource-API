@@ -12,13 +12,14 @@
         <input class="form-control mb-4" type="number" name="price" min="1" max="200" value="{{bread.price}}" >
         <label class="form-label">Special Ingredients:</label>
         <input class="form-control mb-4" type="text" name="specialIngredients" value="{{bread.specialIngredients}}" >
-        <label class="form-label">Is the bread Vegan?:</label>
+        <label class="form-label">Is the bread Vegan?</label>
         <input class="form-check-input mb-4" type="checkbox" name="isVegan"
         {% if bread.isVegan %}
         checked
         {% endif %}
         >
-        <label class="form-label">Is the bread Yeasted?:</label>
+        <br>
+        <label class="form-label">Is the bread Yeasted?</label>
         <input class="form-check-input mb-4" type="checkbox" name="isYeasted"
         {% if bread.isYeasted %}
         checked
