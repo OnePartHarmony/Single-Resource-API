@@ -25,11 +25,14 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <a href="/cakes" class="nav-link text-light">All Cakes</a>
                     <a href="/breads" class="nav-link text-light">All Breads</a>
-                    <a href="/cakes/new" class="nav-link text-light">New Cake</a>
-                    <a href="/breads/new" class="nav-link text-light">New Bread</a>
-                    <a href="/user/signup" class="nav-link text-light">Sign Up</a>
-                    <a href="/user/login" class="nav-link text-light">Log In</a>
-                    <a href="/user/logout" class="nav-link text-light">Log Out</a>
+                    {% if loggedIn %}
+                        <a href="/cakes/new" class="nav-link text-light">New Cake</a>
+                        <a href="/breads/new" class="nav-link text-light">New Bread</a>
+                        <a href="/user/logout" class="nav-link text-light">Log Out</a>
+                    {% else %}
+                        <a href="/user/signup" class="nav-link text-light">Sign Up</a>
+                        <a href="/user/login" class="nav-link text-light">Log In</a>
+                    {% endif %}
                 </div>
             </div>
         </nav>
