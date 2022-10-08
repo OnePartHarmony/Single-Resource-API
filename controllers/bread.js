@@ -10,14 +10,15 @@ const router = express.Router()
 /////index/////
 router.get("/", (req,res) => {
     Bread.find({})
-        .populate("owner", "username")
-        .populate("comments.author", "username")
+        // .populate("owner", "username")
+        // .populate("comments.author", "username")
         .then(breads => {
             const username = req.session.username
             const loggedIn = req.session.loggedIn
             const userId = req.session.userId
+            const goodsList = ["breads"]
             const whoseIndex = "All"
-            res.render("breads/index", {breads, username, loggedIn, userId, whoseIndex})
+            res.render("menu", {breads, username, loggedIn, userId, whoseIndex, goodsList})
         })
         .catch(err => res.redirect(`/error?error=${err}`))
 })
@@ -51,8 +52,9 @@ router.get("/mine", (req,res) => {
             const username = req.session.username
             const loggedIn = req.session.loggedIn
             const userId = req.session.userId
+            const goodsList = ["breads"]
             const whoseIndex = "Your"
-            res.render("breads/index", {breads, username, loggedIn, userId, whoseIndex})
+            res.render("menu", {breads, username, loggedIn, userId, whoseIndex, goodsList})
         })
         .catch(err => res.redirect(`/error?error=${err}`))
 })
@@ -61,8 +63,8 @@ router.get("/mine", (req,res) => {
 router.get("/:name", (req, res) => {
     const name = req.params.name
     Bread.findOne({ name: {$eq: name}})
-        .populate("owner", "username")
-        .populate("comments.author", "username")
+        // .populate("owner", "username")
+        // .populate("comments.author", "username")
         .then(bread => {
             const username = req.session.username
             const loggedIn = req.session.loggedIn

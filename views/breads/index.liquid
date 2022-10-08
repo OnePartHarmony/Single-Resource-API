@@ -1,22 +1,28 @@
-{% layout "layout.liquid" %}
+{%- comment -%} {% layout "layout.liquid" %} {%- endcomment -%}
 {% block content %}
-  <div>
-    <h2 class="display-6">{{whoseIndex}} Breads</h2>
-    <div class="row">
-      {% for bread in breads %}
-        <div class="card" style="width: 18rem">
-          <h5 class="card-header">{{ bread.name }}
-          </h5>
-          <div class="card-body">
-            <h5 class="card-title">${{bread.price}}
+  {% if breads.length > 0 %}
+    <div>
+      <h2 class="display-6">{{whoseIndex}} Breads</h2>
+      <div class="row">
+        {% for bread in breads %}
+          <div class="card" style="width: 18rem">
+            <h5 class="card-header">{{ bread.name }}
             </h5>
-            <a class="btn btn-info" href="/breads/{{bread.name}}">
-              View {{bread.name}}
-            </a>
+            <div class="card-body">
+              <h5 class="card-title">${{bread.price}}
+              </h5>
+              <a class="btn btn-info" href="/breads/{{bread.name}}">
+                View {{bread.name}}
+              </a>
+            </div>
           </div>
-        </div>
-      {% endfor %}
+        {% endfor %}
+      </div>
     </div>
-  </div>
-
+  {% else %}
+    <div>
+      <h2 class="display-6">No breads yet, time to add some!</h2>
+      <a class="btn btn-warning" href="/breads/new">New Bread</a>
+    </div>
+  {% endif %}
 {% endblock %}

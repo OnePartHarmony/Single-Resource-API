@@ -1,0 +1,7 @@
+{% layout "layout.liquid" %}
+{% block content %}
+    {% for good in goodsList %}
+        <hr class="mb-4 mt-4">
+        {% render "{{good}}/index.liquid", breads: breads, cakes: cakes, username: username, loggedIn: loggedIn, userId: userId, whoseIndex: whoseIndex} %}        
+    {% endfor %}
+{% endblock %}

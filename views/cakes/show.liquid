@@ -45,7 +45,7 @@
             <div class="container-sm justify-content-center">
                 <div class="col-md-8 col-lg-6">
                 {% for comment in cake.comments %}
-                    {% render "./comment.liquid", comment: comment, userId: userId, good: cake %}
+                    {% render "comment.liquid", comment: comment, userId: userId, good: cake %}
                 {% endfor %}
                 </div>
             </div>

@@ -1,23 +1,29 @@
-{% layout "layout.liquid" %}
+{%- comment -%} {% layout "layout.liquid" %} {%- endcomment -%}
 {% block content %}
-  <div>
-    <h2 class="display-6">{{whoseIndex}} Cakes</h2>
-    <div class="row">
-      {% for cake in cakes %}
-        <div class="card" style="width: 18rem">
-          <h5 class="card-header">{{ cake.name }}
-          </h5>
-          <div class="card-body">
-            <h5 class="card-title">${{cake.price}}
+  {% if cakes.length > 0 %}
+    <div>
+      <h2 class="display-6">{{whoseIndex}} Cakes</h2>
+      <div class="row">
+        {% for cake in cakes %}
+          <div class="card" style="width: 18rem">
+            <h5 class="card-header">{{ cake.name }}
             </h5>
-            <a class="btn btn-info" href="/cakes/{{cake.name}}">
-              View
-              {{cake.name}}
-            </a>
+            <div class="card-body">
+              <h5 class="card-title">${{cake.price}}
+              </h5>
+              <a class="btn btn-info" href="/cakes/{{cake.name}}">
+                View
+                {{cake.name}}
+              </a>
+            </div>
           </div>
-        </div>
-      {% endfor %}
+        {% endfor %}
+      </div>
     </div>
-  </div>
-
-{% endblock %}}}
+  {% else %}
+    <div>
+      <h2 class="display-6">No cakes yet, time to add some!</h2>
+      <a class="btn btn-warning" href="/cakes/new">New Cake</a>
+    </div>
+  {% endif %}
+{% endblock %}

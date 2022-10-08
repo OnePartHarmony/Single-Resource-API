@@ -8,6 +8,8 @@ const UserRouter = require("./controllers/user")
 const CommentRouter = require("./controllers/comment")
 const middleware = require("./utility/middleware")
 
+const Cake = require("./models/cakes")
+const Bread = require("./models/bread")
 ////express application object////////
 const app = require("liquid-express-views")(express())
 
@@ -21,6 +23,24 @@ app.get("/", (req,res) => {
     const loggedIn = req.session.loggedIn
     const userId = req.session.userId
     res.render("index.liquid", {username, loggedIn, userId})
+})
+
+/////Menu Route//////
+app.get("/menu", (req,res) => {
+    Cake.find({})
+        .then(cakes => {
+                const username = req.session.username
+                const loggedIn = req.session.loggedIn
+                const userId = req.session.userId
+                const goodsList = ["breads", "cakes"]
+                const whoseIndex = "All"
+                Bread.find({})
+                    .then(breads => {
+                       res.render("menu", {cakes, breads, username, loggedIn, userId, whoseIndex, goodsList}) 
+                    })
+                    .catch(err => res.redirect(`/error?error=${err}`))
+            })
+            .catch(err => res.redirect(`/error?error=${err}`))
 })
 
 

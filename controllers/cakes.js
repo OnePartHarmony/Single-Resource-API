@@ -11,14 +11,15 @@ const router = express.Router()
 /////index/////
 router.get("/", (req,res) => {
     Cake.find({})
-        .populate("owner", "username")
-        .populate("comments.author", "username")
+        // .populate("owner", "username")
+        // .populate("comments.author", "username")
         .then(cakes => {
             const username = req.session.username
             const loggedIn = req.session.loggedIn
             const userId = req.session.userId
+            const goodsList = ["cakes"]
             const whoseIndex = "All"
-            res.render("cakes/index", {cakes, username, loggedIn, userId, whoseIndex})
+            res.render("menu", {cakes, username, loggedIn, userId, whoseIndex, goodsList})
         })
         .catch(err => res.redirect(`/error?error=${err}`))
 })
@@ -45,14 +46,15 @@ router.post("/", (req,res) => {
 /////index route for user-owned cakes/////
 router.get("/mine", (req,res) => {
     Cake.find({owner: req.session.userId})
-        .populate("owner", "username")
-        .populate("comments.author", "username")
+        // .populate("owner", "username")
+        // .populate("comments.author", "username")
         .then(cakes => {
             const username = req.session.username
             const loggedIn = req.session.loggedIn
             const userId = req.session.userId
+            const goodsList = ["cakes"]
             const whoseIndex = "Your"
-            res.render("cakes/index", {cakes, username, loggedIn, userId, whoseIndex})
+            res.render("menu", {cakes, username, loggedIn, userId, whoseIndex, goodsList})
         })
         .catch(err => res.redirect(`/error?error=${err}`))
 })
@@ -61,8 +63,8 @@ router.get("/mine", (req,res) => {
 router.get("/:name", (req, res) => {
     const name = req.params.name
     Cake.findOne({name: {$eq: name}})
-        .populate("owner", "username")
-        .populate("comments.author", "username")
+        // .populate("owner", "username")
+        // .populate("comments.author", "username")
         .then(cake => {
             const username = req.session.username
             const loggedIn = req.session.loggedIn

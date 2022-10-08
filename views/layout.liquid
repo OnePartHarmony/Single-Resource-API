@@ -15,6 +15,7 @@
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
             <div class="container-fluid">
                 <a href="/" class="navbar-brand">Bakery</a>
+                <a href="/menu" class="nav-link text-light">Menu</a>
                 {% if loggedIn %}
                     <a class="nav-link text-light" href="/breads/mine">Breads by {{username}}</a>
                     <a class="nav-link text-light" href="/cakes/mine">Cakes by {{username}}</a>
@@ -23,8 +24,8 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <a href="/cakes" class="nav-link text-light">All Cakes</a>
-                    <a href="/breads" class="nav-link text-light">All Breads</a>
+                    <a href="/cakes" class="nav-link text-light">Cakes</a>
+                    <a href="/breads" class="nav-link text-light">Breads</a>
                     {% if loggedIn %}
                         <a href="/cakes/new" class="nav-link text-light">New Cake</a>
                         <a href="/breads/new" class="nav-link text-light">New Bread</a>
