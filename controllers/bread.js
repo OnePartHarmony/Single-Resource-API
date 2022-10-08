@@ -108,15 +108,22 @@ router.put("/:name", (req, res) => {
 })
 
 //////delete//////
-router.delete("/:name", (req, res) => {
+router.delete("/:name", (req,res) => {
     const name = req.params.name
     Bread.findOne({name: {$eq: name}})
-    .then(bread => {
-        bread.deleteOne()
-        res.redirect("/breads")
-    })
-    .catch(err => res.redirect(`/error?error=${err}`))
+        .then(bread => {
+            if (bread.owner == req.session.userId) {
+                bread.deleteOne()
+                res.redirect("/breads")
+            } else {
+                res.redirect("/error?error=unauthorized")
+            }
+        })
+        .catch(err => res.redirect(`/error?error=${err}`))
 })
+
+
+
 
 
 

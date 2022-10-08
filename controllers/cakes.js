@@ -110,13 +110,16 @@ router.put("/:name", (req, res) => {
 router.delete("/:name", (req, res) => {
     const name = req.params.name
     Cake.findOne({name: {$eq: name}})
-    .then(cake => {
-        cake.deleteOne()
-        res.redirect("/cakes")
-    })
-    .catch(err => res.json(err))
+        .then(cake => {
+            if (cake.owner == req.session.userId) {
+                cake.deleteOne()
+                res.redirect("/cakes")
+            } else {
+                res.redirect("/error?error=unauthorized")
+            }            
+        })
+        .catch(err => res.redirect(`/error?error=${err}`))
 })
-
 
 
 ////export router//////
