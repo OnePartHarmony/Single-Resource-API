@@ -5,3 +5,10 @@ body {
 .card {
     margin: 5px;
 }
+
+.btn-group-lg {
+    margin: auto;
+    width: max-content;
+    display: flex;
+    justify-content: center;
+}

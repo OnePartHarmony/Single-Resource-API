@@ -1,14 +1,22 @@
 {% layout 'layout.liquid' %}
 {% block content %}
-  <h1 class="display-4">Welcome To Our Bakery App</h1>
-  <h2>A place to comment on our breads and cakes</h2>
-  <div class="btn-group btn-group-md">
-    <a href="/user/signup" class="btn btn-outline-secondary">Sign Up</a>
-    <a href="/user/login" class="btn btn-outline-info">Login</a>
-  </div>
+  <h1 class="display-4 text-center">Welcome To Our Bakery App</h1>
+  <h2 class="text-center">A place to comment on our breads and cakes</h2>
+  <hr>
+  {% if loggedIn %}
+    <div class="btn-group btn-group-lg">
+      <a href="/mine" class="btn btn-success">Baked Goods By {{username}}</a>
+    </div>
+  {% else %}
+    <div class="btn-group btn-group-lgr">
+      <a href="/user/signup" class="btn btn-primary">Sign Up</a>
+      <a href="/user/login" class="btn btn-warning">Login</a>
+    </div>
+  {% endif %}
   <br>
-  <div class="btn-group btn-group-lg">
-    <a href="/breads" class="btn btn-warning">View All Breads</a>
-    <a href="/cakes" class="btn btn-primary">View All Cakes</a>
+  <hr>
+  <div class="btn-group-lg">
+    <a href="/breads" class="btn btn-outline-info">View All Breads</a>
+    <a href="/cakes" class="btn btn-outline-secondary">View All Cakes</a>
   </div>
 {% endblock %}

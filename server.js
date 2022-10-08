@@ -43,6 +43,25 @@ app.get("/menu", (req,res) => {
             .catch(err => res.redirect(`/error?error=${err}`))
 })
 
+/////User-created items route//////
+app.get("/mine", (req,res) => {
+    Cake.find({owner: req.session.userId})
+        .then(cakes => {
+                const username = req.session.username
+                const loggedIn = req.session.loggedIn
+                const userId = req.session.userId
+                const goodsList = ["breads", "cakes"]
+                const whoseIndex = "Your"
+                Bread.find({owner: req.session.userId})
+                    .then(breads => {
+                       res.render("menu", {cakes, breads, username, loggedIn, userId, whoseIndex, goodsList}) 
+                    })
+                    .catch(err => res.redirect(`/error?error=${err}`))
+            })
+            .catch(err => res.redirect(`/error?error=${err}`))
+})
+
+
 
 /////Register Routes///////
 app.use("/cakes", CakeRouter)

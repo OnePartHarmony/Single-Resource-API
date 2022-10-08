@@ -17,13 +17,12 @@
                 <a href="/" class="navbar-brand">Bakery</a>
                 <a href="/menu" class="nav-link text-light">Menu</a>
                 {% if loggedIn %}
-                    <a class="nav-link text-light" href="/breads/mine">Breads by {{username}}</a>
-                    <a class="nav-link text-light" href="/cakes/mine">Cakes by {{username}}</a>
+                    <a class="nav-link text-light" href="/mine">{{username}}'s menu</a>
                 {% endif %}
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <a href="/cakes" class="nav-link text-light">Cakes</a>
                     <a href="/breads" class="nav-link text-light">Breads</a>
                     {% if loggedIn %}

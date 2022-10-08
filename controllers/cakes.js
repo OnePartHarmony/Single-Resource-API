@@ -44,20 +44,20 @@ router.post("/", (req,res) => {
 })
 
 /////index route for user-owned cakes/////
-router.get("/mine", (req,res) => {
-    Cake.find({owner: req.session.userId})
-        // .populate("owner", "username")
-        // .populate("comments.author", "username")
-        .then(cakes => {
-            const username = req.session.username
-            const loggedIn = req.session.loggedIn
-            const userId = req.session.userId
-            const goodsList = ["cakes"]
-            const whoseIndex = "Your"
-            res.render("menu", {cakes, username, loggedIn, userId, whoseIndex, goodsList})
-        })
-        .catch(err => res.redirect(`/error?error=${err}`))
-})
+// router.get("/mine", (req,res) => {
+//     Cake.find({owner: req.session.userId})
+//         // .populate("owner", "username")
+//         // .populate("comments.author", "username")
+//         .then(cakes => {
+//             const username = req.session.username
+//             const loggedIn = req.session.loggedIn
+//             const userId = req.session.userId
+//             const goodsList = ["cakes"]
+//             const whoseIndex = "Your"
+//             res.render("menu", {cakes, username, loggedIn, userId, whoseIndex, goodsList})
+//         })
+//         .catch(err => res.redirect(`/error?error=${err}`))
+// })
 
 /////show/////
 router.get("/:name", (req, res) => {
