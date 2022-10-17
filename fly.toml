@@ -1,6 +1,6 @@
-# fly.toml file generated for single-resource-api on 2022-10-17T11:24:48-04:00
+# fly.toml file generated for harmony-deliverable-api on 2022-10-17T12:13:02-04:00
 
-app = "single-resource-api"
+app = "harmony-deliverable-api"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
@@ -10,7 +10,7 @@ processes = []
 
 [env]
   PORT = "8080"
-  DEPLOYED_URL = "mongodb+srv://onepartharmony:FUZZ99@cluster0.myg30jm.mongodb.net/cakesAPI?retryWrites=true&w=majority"
+  DEPLOYED_URL= "mongodb+srv://onepartharmony:FUZZ99@cluster0.myg30jm.mongodb.net/cakesAPI?retryWrites=true&w=majority"
   SECRET = "jahbfSDG36098sjknaFAFafjnio423058970jknsdg"
 
 [experimental]
