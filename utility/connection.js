@@ -11,7 +11,9 @@ const CONFIG = {
   useUnifiedTopology: true,
 }
 
+// mongoose.connect(DATABASE_URL, CONFIG)
 mongoose.connect(DEPLOYED_URL, CONFIG)
+
 
 mongoose.connection
     .on("open", () => console.log("Connected to Mongoose"))
