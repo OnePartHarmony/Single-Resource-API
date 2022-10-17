@@ -10,8 +10,8 @@ const router = express.Router()
 /////index/////
 router.get("/", (req,res) => {
     Bread.find({})
-        // .populate("owner", "username")
-        // .populate("comments.author", "username")
+        .populate("owner", "username")
+        .populate("comments.author", "username")
         .then(breads => {
             const username = req.session.username
             const loggedIn = req.session.loggedIn
@@ -63,8 +63,8 @@ router.post("/", (req,res) => {
 router.get("/:name", (req, res) => {
     const name = req.params.name
     Bread.findOne({ name: {$eq: name}})
-        // .populate("owner", "username")
-        // .populate("comments.author", "username")
+        .populate("owner", "username")
+        .populate("comments.author", "username")
         .then(bread => {
             const username = req.session.username
             const loggedIn = req.session.loggedIn
@@ -79,21 +79,20 @@ router.get("/:name", (req, res) => {
 router.get("/edit/:name", (req,res) => {
     const name = req.params.name
     Bread.findOne({name: {$eq: name}})
-        .then (bread => {
+        .then(bread => {
             const username = req.session.username
             const loggedIn = req.session.loggedIn
             const userId = req.session.userId
             res.render("breads/edit", {bread, username, loggedIn, userId})
         })
-        .catch(err => {
-            res.redirect(`/error?error=${err}`)
-        })
+        .catch(err => res.redirect(`/error?error=${err}`))
 })
+
 
 //////update///////
 router.put("/:name", (req, res) => {
     const name = req.params.name
-    req.body.isYeasted =req.body.isYeasted == "on" ? true : false
+    req.body.isYeasted = req.body.isYeasted == "on" ? true : false
     req.body.isVegan = req.body.isVegan == "on" ? true : false
     Bread.findOne({name: {$eq: name}})
         .then(bread => {

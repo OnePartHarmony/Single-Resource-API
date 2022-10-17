@@ -63,8 +63,8 @@ router.post("/", (req,res) => {
 router.get("/:name", (req, res) => {
     const name = req.params.name
     Cake.findOne({name: {$eq: name}})
-        // .populate("owner", "username")
-        // .populate("comments.author", "username")
+        .populate("owner", "username")
+        .populate("comments.author", "username")
         .then(cake => {
             const username = req.session.username
             const loggedIn = req.session.loggedIn
@@ -77,11 +77,11 @@ router.get("/:name", (req, res) => {
 
 router.get("/edit/:name", (req,res) => {
     const name = req.params.name
+    const username = req.session.username
+    const loggedIn = req.session.loggedIn
+    const userId = req.session.userId 
     Cake.findOne({name: {$eq: name}})
         .then (cake => {
-            const username = req.session.username
-            const loggedIn = req.session.loggedIn
-            const userId = req.session.userId
             res.render("cakes/edit", {cake, username, loggedIn, userId})
         })
         .catch(err => {
